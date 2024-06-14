@@ -1,0 +1,41 @@
+#TYPE: "pt" # "shot" or "pt"
+DATALOADER:
+  TRAIN_X:
+    BATCH_SIZE: 64 #32
+  TRAIN_U: 
+    MU: 7
+  TEST:
+    BATCH_SIZE: 64 #100
+  NUM_WORKERS: 16 
+ALPHA: 0.95
+TRAINER:
+  FIXMATCH:
+    WEIGHT_U: 1.0 #10.0 #3.0  #lamda
+    CONF_THRE: 0.7
+
+INPUT:
+  SIZE: (224, 224)
+  INTERPOLATION: "bicubic"
+  PIXEL_MEAN: [0.48145466, 0.4578275, 0.40821073]
+  PIXEL_STD: [0.26862954, 0.26130258, 0.27577711]
+  TRANSFORMS: ["random_resized_crop", "random_flip", "normalize"]
+
+# Path to a directory where the files were saved previously
+RESUME: ""
+
+OPTIM:
+  NAME: "sgd"
+  LR: 0.005
+  MAX_EPOCH: 250
+  WEIGHT_DECAY: 5e-4
+  LR_SCHEDULER: "cosine"
+  WARMUP_EPOCH: 1
+  WARMUP_TYPE: "constant"
+  WARMUP_CONS_LR: 1e-5
+
+TRAIN:
+  PRINT_FREQ: 5
+
+MODEL:
+  BACKBONE:
+    NAME: "RN50"
